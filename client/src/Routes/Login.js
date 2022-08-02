@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,8 @@ const Login = () => {
       if (response.ok === true) {
         const data = await response.json();
         // data has Token
-        localStorage.setItem("token", data.jwtToken);
+        Cookies.set("token", data.jwtToken, { expires: 2 });
+        console.log(data.isAdmin);
 
         setEmail("");
         setError("");
@@ -69,9 +71,6 @@ const Login = () => {
         />
         <input type="submit" className="btn btn-primary" />
         {error && <p className="text-danger">{error}</p>}
-        <p>
-          Not a user? <Link to="/register">Register</Link>
-        </p>
       </form>
     </div>
   );

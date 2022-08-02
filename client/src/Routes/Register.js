@@ -6,6 +6,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
 
   // Registering user
@@ -19,6 +20,7 @@ const Register = () => {
         body: JSON.stringify({
           email: email,
           password: password,
+          isAdmin: isAdmin,
         }),
       });
       const data = await response.text();
@@ -80,11 +82,17 @@ const Register = () => {
           value={confirmPassword}
           onChange={confirmPasswordHandle}
         />
+        <div>
+          <input
+            type="checkbox"
+            id="checkbox"
+            value={isAdmin}
+            onChange={() => setIsAdmin(!isAdmin)}
+          />
+          <label htmlFor="checkbox">Administrator</label>
+        </div>
         <input type="submit" className="btn btn-primary" />
         {error && <p className="text-danger">{error}</p>}
-        <p>
-          Already a user? <Link to="/login">Login</Link>
-        </p>
       </form>
     </div>
   );
