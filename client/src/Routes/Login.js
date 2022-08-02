@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -9,6 +9,14 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const removeCookies = () => {
+      Cookies.remove("token");
+      Cookies.remove("isAdmin");
+    };
+    removeCookies();
+  });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -26,6 +34,7 @@ const Login = () => {
         const data = await response.json();
         // data has Token
         Cookies.set("token", data.jwtToken, { expires: 2 });
+        Cookies.set("isAdmin", data.isAdmin, { expires: 2 });
         console.log(data.isAdmin);
 
         setEmail("");

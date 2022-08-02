@@ -14,13 +14,13 @@ const Register = () => {
 
   useEffect(() => {
     const checkIfLogin = () => {
-      const token = Cookies.get("token");
-        if (!token) {
-        navigate("/login");
+      const is_admin = Cookies.get("isAdmin");
+      if (is_admin === "false") {
+        navigate("/");
       }
     };
     checkIfLogin();
-  });
+  }, []);
 
   // Registering user
   const submitHandler = async (e) => {
