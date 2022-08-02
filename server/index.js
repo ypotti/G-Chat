@@ -3,6 +3,7 @@ const path = require("path");
 var bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const corsOptions = {
   origin: "*",
@@ -60,13 +61,29 @@ app.post("/register/", jsonParser, async (request, response) => {
     const newUserId = dbResponse.lastID;
     response.send(`Created new user with ${newUserId}`);
   } else {
-    response.status = 400;
+    response.status(400);
     response.send(`User already exists`);
   }
 });
 
-app.post("/login", jsonParser, async (request, response) => {
-  console.log(request.query);
-  response.send("Done");
-  
+app.post("/login/", jsonParser, async (request, response) => {
+  const { email, password } = request.body;
+  const selectUserQuery = `SELECT * FROM user WHERE email = '${email}';`;
+  const dbUser = await db.get(selectUserQuery);
+  if (dbUser === undefined) {
+    response.status(400);
+    response.send("Invalid User");
+  } else {
+    const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
+    if (isPasswordMatched === true) {
+      const payload = {
+        email: email,
+      };
+      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+      response.send({ jwtToken });
+    } else {
+      response.status(400);
+      response.send("Invalid Password");
+    }
+  }
 });

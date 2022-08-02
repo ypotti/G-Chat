@@ -1,25 +1,49 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8080/login?email=${email}&password=${password}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: {
-        email: email,
-        password: password,
-      },
-    });
-    const data = await response.json();
-    if (response.ok === true) {
-      console.log(data);
+    if (email && password) {
+      const url = `http://localhost:8080/login/`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      if (response.ok === true) {
+        const data = await response.json();
+        // data has Token
+        localStorage.setItem("token", data.jwtToken);
+
+        setEmail("");
+        setError("");
+        setPassword("");
+
+        // Navigating to Home Page
+        navigate("/");
+      } else {
+        const data = await response.text();
+        setError(data);
+      }
+    } else {
+      if (!email) {
+        setError("Enter Email Id");
+      } else if (!password) {
+        setError("Enter Password");
+      } else {
+        setError("Enter all details");
+      }
     }
   };
 
@@ -44,6 +68,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <input type="submit" className="btn btn-primary" />
+        {error && <p className="text-danger">{error}</p>}
         <p>
           Not a user? <Link to="/register">Register</Link>
         </p>
