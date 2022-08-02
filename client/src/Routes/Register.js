@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,18 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkIfLogin = () => {
+      const token = Cookies.get("token");
+        if (!token) {
+        navigate("/login");
+      }
+    };
+    checkIfLogin();
+  });
 
   // Registering user
   const submitHandler = async (e) => {
