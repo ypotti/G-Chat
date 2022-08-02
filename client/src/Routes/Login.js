@@ -6,8 +6,21 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const url = `http://localhost:8080/login?email=${email}&password=${password}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: {
+        email: email,
+        password: password,
+      },
+    });
+    const data = await response.json();
+    if (response.ok === true) {
+      console.log(data);
+    }
   };
 
   return (

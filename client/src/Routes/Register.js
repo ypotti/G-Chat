@@ -6,9 +6,50 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const submitHandler = (e) => {
+  // Registering user
+  const submitHandler = async (e) => {
     e.preventDefault();
+    if (!error && email && password) {
+      const url = "http://localhost:8080/register/";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      const data = await response.text();
+      if (response.ok === true) {
+        console.log(data);
+
+        setEmail("");
+        setError(data);
+        setPassword("");
+        setConfirmPassword("");
+      }
+    } else {
+      if (!email) {
+        setError("Enter Email Id");
+      } else if (!password) {
+        setError("Enter Password");
+      } else if (password !== confirmPassword) {
+        setError("Passwords are not same");
+      } else {
+        setError("Enter all details");
+      }
+    }
+  };
+
+  const confirmPasswordHandle = (e) => {
+    setConfirmPassword(e.target.value);
+    if (e.target.value !== password) {
+      setError("Passwords are not same");
+    } else {
+      setError("");
+    }
   };
 
   return (
@@ -37,9 +78,10 @@ const Register = () => {
           placeholder="Enter Password again"
           className="form-control"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={confirmPasswordHandle}
         />
         <input type="submit" className="btn btn-primary" />
+        {error && <p className="text-danger">{error}</p>}
         <p>
           Already a user? <Link to="/login">Login</Link>
         </p>
