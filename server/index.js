@@ -44,22 +44,23 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register/", jsonParser, async (request, response) => {
-  const { email } = request.body;
+  const { email, isAdmin } = request.body;
   const hashedPassword = await bcrypt.hash(request.body.password, 10);
   const selectUserQuery = `SELECT * FROM user WHERE email = '${email}';`;
   const dbUser = await db.get(selectUserQuery);
   if (dbUser === undefined) {
     const createUserQuery = `
           INSERT INTO
-            user (email, password)
+            user (email, password,is_admin)
           VALUES
             (
               '${email}',
-              '${hashedPassword}'
+              '${hashedPassword}',
+              '${isAdmin}'
             );`;
     const dbResponse = await db.run(createUserQuery);
     const newUserId = dbResponse.lastID;
-    response.send(`Created new user with ${newUserId}`);
+    response.send(`Created user`);
   } else {
     response.status(400);
     response.send(`User already exists`);
@@ -80,7 +81,10 @@ app.post("/login/", jsonParser, async (request, response) => {
         email: email,
       };
       const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
-      response.send({ jwtToken });
+      response.send({
+        jwtToken: jwtToken,
+        isAdmin: dbUser.is_admin,
+      });
     } else {
       response.status(400);
       response.send("Invalid Password");
