@@ -113,3 +113,18 @@
     cursor: pointer;
     margin: 0.2em;
 }
+
+.Home__button{
+    background-color: var(--secondary-color);
+    box-shadow: var(--box-shadow);
+    color: var(--text-color);
+    border: 0px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5em;
+}
+
+.button-icon{
+    font-size: 1.5rem;
+    margin-right: 0.3em;
+    color: inherit;
+}

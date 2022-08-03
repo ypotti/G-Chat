@@ -39,9 +39,26 @@ const initializeDBAndServer = async () => {
 
 initializeDBAndServer();
 
-app.get("/", (req, res) => {
-  res.send("Hi All");
-});
+const verifyToken = async (request, response, next) => {
+  let jwtToken;
+  const authHeader = request.headers["authorization"];
+  if (authHeader !== undefined) {
+    jwtToken = authHeader.split(" ")[1];
+  }
+  if (jwtToken === undefined) {
+    response.status(401);
+    response.send("Invalid JWT Token");
+  } else {
+    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
+      if (error) {
+        response.status(401);
+        response.send("Invalid JWT Token");
+      } else {
+        next();
+      }
+    });
+  }
+};
 
 app.post("/register/", jsonParser, async (request, response) => {
   const { email, isAdmin } = request.body;
@@ -90,4 +107,11 @@ app.post("/login/", jsonParser, async (request, response) => {
       response.send("Invalid Password");
     }
   }
+});
+
+// get_all_users
+app.get("/get_all_users", verifyToken, async (request, response) => {
+  const getAllUsersQuery = `SELECT email, is_admin FROM user ;`;
+  const users = await db.all(getAllUsersQuery);
+  response.send(users);
 });
