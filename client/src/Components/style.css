@@ -12,3 +12,40 @@
     font-size: 2rem;
     color: var(--text-color);
 }
+
+.User{
+    border-bottom: 2px solid var(--border-color);
+    cursor: pointer;
+}
+
+.User__avatar{
+    padding: 0.2em;
+    margin: 0.5em 1em;
+    font-size: 2rem;
+    border-radius: 50%;
+    width: 3.6rem;
+    height: 3.6rem;
+    text-align: center;
+    background-color: var(--avatar-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--secondary-text-color);
+}
+
+.User__name{
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.User__email{
+    color: var(--secondary-text-color);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.User__admin{
+    margin-left: auto;
+    padding-right: 1em;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}

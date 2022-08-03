@@ -128,3 +128,18 @@
     margin-right: 0.3em;
     color: inherit;
 }
+/* HOME */
+
+.Home__Hero{
+    margin-top: 1rem;
+    background-color: var(--secondary-color);
+    width: 100%;
+    box-shadow: var(--box-shadow);
+    height: 85vh;
+}
+
+.Home__user{
+    width: 30%;
+    border-right: 2px solid var(--border-color);
+    overflow-y: auto;
+}

@@ -17,6 +17,7 @@
     --label-color: #222;
     --border-color: #b8b8b8;
     --box-shadow: 0 0 2px 5px rgba(210, 208, 208, 0.445);
+    --avatar-bg-color: #DFE5E7;
   }
   
   [data-theme="dark"] {
@@ -27,6 +28,8 @@
     --quote-color: #bbbbbb;
     --bg-color: #1E2E3D;
     --label-color: #696868;
-    --border-color: #2e2d2d;
+    /* --border-color: #2e2d2d; */
+    --border-color: #948f8f;
+    --avatar-bg-color: #4450506f;
     --box-shadow: none;
   }
