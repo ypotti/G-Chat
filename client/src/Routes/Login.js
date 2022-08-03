@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import ColorTheme from "../Components/ColorTheme";
 
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import "./style.css";
@@ -104,7 +105,7 @@ const Login = () => {
           </div>
         </div>
         {/* Theme Switch Button*/}
-        {/* <div className="Login__Theme"></div> */}
+        <ColorTheme />
       </div>
     </div>
   );

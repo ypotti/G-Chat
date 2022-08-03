@@ -1,0 +1,14 @@
+.ColorTheme{
+    position: absolute;
+    cursor: pointer;
+    right: 3rem;
+    bottom: 3rem;
+    padding: .8em;
+    background-color: var(--secondary-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 50%;
+}
+.ColorTheme__icon{
+    font-size: 2rem;
+    color: var(--text-color);
+}

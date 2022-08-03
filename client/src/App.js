@@ -10,8 +10,12 @@ export const ThemeContext = createContext("");
 function App() {
   const [theme, setTheme] = useState("dark");
 
+  const changeTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, changeTheme }}>
       <div data-theme={theme}>
         <Router>
           <Routes>
