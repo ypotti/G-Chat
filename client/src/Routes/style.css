@@ -2,7 +2,7 @@
 
 .Login__bg{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--bg-color);
 }
 .Login__Content-Box{
@@ -86,4 +86,30 @@
     border:0px;
     padding: 0.5rem 1rem;
     border-radius: 0.5em;
+}
+
+.secondary-button{
+    color: #f8f8f8;
+    background-color: var(--label-color);
+    border:0px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5em;
+}
+.checkbox{
+    accent-color: var(--secondary-color);
+    border-color: var(--border-color);
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5em;
+    color: var(--text-color);
+    outline: none;
+}
+.pointer{
+    cursor: pointer;
+}
+.back-icon{
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0.2em;
 }

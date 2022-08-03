@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import ColorTheme from "../Components/ColorTheme";
+import { BsFillChatQuoteFill } from "react-icons/bs";
+import "./style.css";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -68,45 +71,73 @@ const Register = () => {
   };
 
   return (
-    <div className="w-100 d-flex flex-column justify-content-center align-items-center">
-      <h2>Register</h2>
-      <form onSubmit={submitHandler}>
-        <label>Name:</label>
-        <input
-          type="text"
-          placeholder="Enter Email"
-          className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label>Confirm Password:</label>
-        <input
-          type="password"
-          placeholder="Enter Password again"
-          className="form-control"
-          value={confirmPassword}
-          onChange={confirmPasswordHandle}
-        />
-        <div>
-          <input
-            type="checkbox"
-            id="checkbox"
-            value={isAdmin}
-            onChange={() => setIsAdmin(!isAdmin)}
-          />
-          <label htmlFor="checkbox">Administrator</label>
+    <div className="Login__bg d-flex flex-row justify-content-center">
+      <div className="Login__Content-Box d-flex flex-column">
+        {/* Brand */}
+        <div className="d-flex align-items-center">
+          <BsFillChatQuoteFill className="Login__brand-icon" />
+          <em className="Login__brand-name">G-Chat</em>
         </div>
-        <input type="submit" className="btn btn-primary" />
-        {error && <p className="text-danger">{error}</p>}
-      </form>
+        {/* Hero */}
+        <div className="mt-3 d-flex justify-content-center Login__Hero">
+          <div className="w-100 d-flex flex-column justify-content-center align-items-center Login__Box">
+            <p className="Login__boxHeading">Register</p>
+            <form onSubmit={submitHandler} className="w-100">
+              <label className="label">Email Id:</label>
+              <input
+                type="text"
+                placeholder="sample@gmail.com"
+                className=" mb-3 input-field"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label className="label">Password:</label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                className=" mb-3 input-field"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label className="label">Confirm Password:</label>
+              <input
+                type="password"
+                placeholder="Enter Password again"
+                className=" mb-3 input-field"
+                value={confirmPassword}
+                onChange={confirmPasswordHandle}
+              />
+              <div className="mb-3">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  id="checkbox"
+                  value={isAdmin}
+                  onChange={() => setIsAdmin(!isAdmin)}
+                />
+                <label htmlFor="checkbox" className="label pointer">
+                  Administrator
+                </label>
+              </div>
+              <div className="d-flex justify-content-between align-items-start">
+                <button type="submit" className="button mb-3">
+                  Submit
+                </button>
+                <button
+                  className="secondary-button"
+                  type="button"
+                  onClick={() => navigate("/")}
+                >
+                  Back
+                </button>
+              </div>
+              {error && <p className="text-danger">{error}</p>}
+            </form>
+          </div>
+        </div>
+        {/* Theme Switch Button*/}
+        <ColorTheme />
+      </div>
     </div>
   );
 };

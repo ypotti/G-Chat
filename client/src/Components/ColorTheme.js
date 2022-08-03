@@ -1,5 +1,4 @@
 import React from "react";
-import { MdOutlineDarkMode } from "react-icons/md";
 import {
   BsFillBrightnessHighFill,
   BsFillBrightnessAltLowFill,

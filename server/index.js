@@ -60,7 +60,7 @@ app.post("/register/", jsonParser, async (request, response) => {
             );`;
     const dbResponse = await db.run(createUserQuery);
     const newUserId = dbResponse.lastID;
-    response.send(`Created user`);
+    response.send(`User Created Successfully`);
   } else {
     response.status(400);
     response.send(`User already exists`);
