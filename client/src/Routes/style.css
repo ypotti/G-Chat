@@ -1,0 +1,90 @@
+/* LOGIN PAGE */
+
+.Login__bg{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+}
+.Login__Content-Box{
+    width: 90%;
+    height: 100%;
+    padding-top: 1.5rem;
+    max-width: 1440px;
+}
+.Login__brand-icon{
+    font-size: 2rem;
+    color: var(--text-color);
+    margin: 0.2em;
+}
+.Login__brand-name{
+    font-size: 1.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0.2em;
+}
+.Login__quote{
+    width: 100%;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+.Login__Author{
+    color: var(--secondary-text-color);
+    font-size: 1.5rem;
+    margin-top: 1em;
+    font-weight: bold;
+    font-style: italic;
+}
+.Login__Hero{
+    align-items: center;
+}
+@media screen and (min-width:768px) {
+    .Login__quote{
+        width: 50%;
+    }
+    .Login__Hero{
+        padding-right: 4rem;
+    }
+}
+.Login__Box{
+    padding: 2rem;
+    margin: 1rem;
+    /* height: 100%; */
+    min-width: 20rem;
+    width: 50%;
+    max-width: 25rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+}
+.label{
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+.Login__boxHeading{
+    color: var(--text-color);
+    font-size: 2rem;
+    margin: 0.5em;
+    font-weight: bold;
+}
+.input-field{
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 5px;
+    margin-top: 0.2em;
+    padding: 1em;
+    outline: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.button{
+    color: #fff;
+    background-color: var(--primary-color);
+    border:0px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5em;
+}

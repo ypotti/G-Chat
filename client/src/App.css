@@ -5,3 +5,27 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
+:root {
+    --primary-color: #6E00FF;
+    --secondary-color: #fff;
+    --text-color: #000;
+    --secondary-text-color: #333;
+    --quote-color: #333333b6;
+    --bg-color: #fff;
+    --label-color: #222;
+    --border-color: #b8b8b8;
+    --box-shadow: 0 0 2px 5px rgba(210, 208, 208, 0.445);
+  }
+  
+  [data-theme="dark"] {
+    --primary-color: #5150FE;
+    --secondary-color: #273444;
+    --text-color: #e6dddd;
+    --secondary-text-color: #948f8f;
+    --quote-color: #bbbbbb;
+    --bg-color: #1E2E3D;
+    --label-color: #696868;
+    --border-color: #2e2d2d;
+    --box-shadow: none;
+  }

@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
+import { BsFillChatQuoteFill } from "react-icons/bs";
+import "./style.css";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,28 +62,50 @@ const Login = () => {
   };
 
   return (
-    <div className="w-100 d-flex flex-column justify-content-center align-items-center">
-      <h2>Login</h2>
-      <form onSubmit={submitHandler}>
-        <label>Name:</label>
-        <input
-          type="text"
-          placeholder="Enter Email"
-          className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" className="btn btn-primary" />
-        {error && <p className="text-danger">{error}</p>}
-      </form>
+    <div className="Login__bg d-flex flex-row justify-content-center">
+      <div className="Login__Content-Box d-flex flex-column">
+        {/* Brand */}
+        <div className="d-flex align-items-center">
+          <BsFillChatQuoteFill className="Login__brand-icon" />
+          <em className="Login__brand-name">G-Chat</em>
+        </div>
+        {/* Hero */}
+        <div className="mt-5 d-flex flex-column flex-md-row justify-content-between Login__Hero">
+          <div className="Login__quote">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a more-or-less normal
+            distribution of letters, as opposed to using 'Content here, content
+            here', making it look like readable English.
+            <div className="Login__Author">__ Author</div>
+          </div>
+          <div className="d-flex flex-column align-items-center Login__Box">
+            <p className="Login__boxHeading">Login</p>
+            <form onSubmit={submitHandler} className="w-100">
+              <label className="label">Email Id:</label>
+              <input
+                type="text"
+                placeholder="admin@gmail.com"
+                className=" mb-3 input-field"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label className="label">Password:</label>
+              <input
+                type="password"
+                placeholder="password"
+                className=" mb-3 input-field"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <input type="submit" className="button mb-3" />
+              {error && <p className="text-danger">{error}</p>}
+            </form>
+          </div>
+        </div>
+        {/* Theme Switch Button*/}
+        {/* <div className="Login__Theme"></div> */}
+      </div>
     </div>
   );
 };
