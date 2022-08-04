@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import Home from "./Routes/Home";
+import NewGroup from "./Routes/NewGroup";
 
 export const ThemeContext = createContext("");
 
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/new-group" element={<NewGroup />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Router>

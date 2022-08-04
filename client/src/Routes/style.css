@@ -143,3 +143,41 @@
     border-right: 2px solid var(--border-color);
     overflow-y: auto;
 }
+
+.user__button{
+    width: 50%;
+    height: 3rem;
+    border: 0px;
+    outline: none;
+}
+
+.border-left{
+    border-left: 2px solid var(--border-color);
+}
+
+.selected-tab{
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.un-selected-tab{
+    font-size: 1.2rem;
+    background-color: var(--border-color);
+    color: #222;
+}
+
+.group_wrap{
+    position: relative;
+    height: 90%;
+}
+.add_group{
+    position: absolute;
+    cursor: pointer;
+    right: 10%;
+    bottom: 10%;
+    padding: .8em;
+    background-color: var(--bg-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 50%;
+}

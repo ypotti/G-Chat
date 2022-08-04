@@ -6,9 +6,12 @@ import { BsFillChatQuoteFill } from "react-icons/bs";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
 import ColorTheme from "../Components/ColorTheme";
 import User from "../Components/User";
+import AddGroup from "../Components/AddGroup";
 
 const Home = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [tabSelected, setTabSelected] = useState("groups");
+
   const navigate = useNavigate();
   const is_admin = Cookies.get("isAdmin");
   const token = Cookies.get("token");
@@ -63,12 +66,39 @@ const Home = () => {
         </div>
         {/* Hero */}
         <div className="Home__Hero d-flex">
-          <div className="Home__user ">
-            {allUsers.map((user, i) => (
-              <User key={i} user={user} />
-            ))}
+          <div className="Home__user">
+            <div className="w-100">
+              <button
+                className={`user__button  ${
+                  tabSelected === "users" ? "selected-tab" : "un-selected-tab"
+                }`}
+                onClick={() => setTabSelected("users")}
+              >
+                Users
+              </button>
+              <button
+                className={`user__button border-left ${
+                  tabSelected === "users" ? "un-selected-tab" : "selected-tab"
+                }`}
+                onClick={() => setTabSelected("groups")}
+              >
+                Groups
+              </button>
+            </div>
+            {tabSelected === "users" ? (
+              <div>
+                {allUsers.map((user) => (
+                  <User key={user.id} user={user} />
+                ))}
+              </div>
+            ) : (
+              <div className="group_wrap">
+                <AddGroup />
+              </div>
+            )}
+
+            <div className="Home__chat bg-secondary">{/* Chat Section */}</div>
           </div>
-          <div className="Home__chat bg-secondary">{/* Chat Section */}</div>
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />

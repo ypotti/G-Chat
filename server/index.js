@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 const corsOptions = {
   origin: "*",
@@ -68,15 +69,16 @@ app.post("/register/", jsonParser, async (request, response) => {
   if (dbUser === undefined) {
     const createUserQuery = `
           INSERT INTO
-            user (email, password,is_admin)
+            user (id,email, password,is_admin)
           VALUES
             (
+              '${uuidv4()}',
               '${email}',
               '${hashedPassword}',
               '${isAdmin}'
             );`;
     const dbResponse = await db.run(createUserQuery);
-    const newUserId = dbResponse.lastID;
+    // const newUserId = dbResponse.lastID;
     response.send(`User Created Successfully`);
   } else {
     response.status(400);
@@ -111,7 +113,7 @@ app.post("/login/", jsonParser, async (request, response) => {
 
 // get_all_users
 app.get("/get_all_users", verifyToken, async (request, response) => {
-  const getAllUsersQuery = `SELECT email, is_admin FROM user ;`;
+  const getAllUsersQuery = `SELECT id, email, is_admin FROM user ;`;
   const users = await db.all(getAllUsersQuery);
   response.send(users);
 });

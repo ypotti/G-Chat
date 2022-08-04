@@ -18,7 +18,7 @@ const Register = () => {
   useEffect(() => {
     const checkIfLogin = () => {
       const is_admin = Cookies.get("isAdmin");
-      if (is_admin === "false") {
+      if (is_admin === "false" || !is_admin) {
         navigate("/");
       }
     };
@@ -120,15 +120,15 @@ const Register = () => {
                 </label>
               </div>
               <div className="d-flex justify-content-between align-items-start">
-                <button type="submit" className="button mb-3">
-                  Submit
-                </button>
                 <button
                   className="secondary-button"
                   type="button"
                   onClick={() => navigate("/")}
                 >
                   Back
+                </button>
+                <button type="submit" className="button mb-3">
+                  Submit
                 </button>
               </div>
               {error && <p className="text-danger">{error}</p>}
