@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import ColorTheme from "../Components/ColorTheme";
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
+import { UsersContext } from "../App";
 
 const Home = () => {
-  const [allUsers, setAllUsers] = useState([]);
+  const { allUsers, setAllUsers } = useContext(UsersContext);
+  const [userFilterValue, setuserFilterValue] = useState("");
   const [tabSelected, setTabSelected] = useState("groups");
 
   const navigate = useNavigate();
@@ -33,7 +36,6 @@ const Home = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
       setAllUsers(data);
     };
     getAllUsers();
@@ -85,20 +87,37 @@ const Home = () => {
                 Groups
               </button>
             </div>
+            <div className="burger-wrap">
+              <GiHamburgerMenu className="burger-icon" />
+            </div>
             {tabSelected === "users" ? (
               <div>
-                {allUsers.map((user) => (
-                  <User key={user.id} user={user} />
-                ))}
+                <div>
+                  <input
+                    type="text"
+                    className="search input-field"
+                    placeholder="Search a user"
+                    value={userFilterValue}
+                    onChange={(e) => setuserFilterValue(e.target.value)}
+                  />
+                </div>
+                <div className="overflow-y">
+                  {allUsers
+                    .filter((user) =>
+                      user.email.split("@")[0].includes(userFilterValue)
+                    )
+                    .map((user) => (
+                      <User key={user.id} user={user} />
+                    ))}
+                </div>
               </div>
             ) : (
               <div className="group_wrap">
                 <AddGroup />
               </div>
             )}
-
-            <div className="Home__chat bg-secondary">{/* Chat Section */}</div>
           </div>
+          <div className="Home__chat bg-secondary">{/* Chat Section */}</div>
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />

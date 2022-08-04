@@ -117,3 +117,29 @@ app.get("/get_all_users", verifyToken, async (request, response) => {
   const users = await db.all(getAllUsersQuery);
   response.send(users);
 });
+
+// Register a group
+// app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
+//   const { email, isAdmin } = request.body;
+//   const hashedPassword = await bcrypt.hash(request.body.password, 10);
+//   const selectUserQuery = `SELECT * FROM user WHERE email = '${email}';`;
+//   const dbUser = await db.get(selectUserQuery);
+//   if (dbUser === undefined) {
+//     const createUserQuery = `
+//           INSERT INTO
+//             user (id,email, password,is_admin)
+//           VALUES
+//             (
+//               '${uuidv4()}',
+//               '${email}',
+//               '${hashedPassword}',
+//               '${isAdmin}'
+//             );`;
+//     const dbResponse = await db.run(createUserQuery);
+//     // const newUserId = dbResponse.lastID;
+//     response.send(`User Created Successfully`);
+//   } else {
+//     response.status(400);
+//     response.send(`User already exists`);
+//   }
+// });
