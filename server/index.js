@@ -6,6 +6,41 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
+let chat = [
+  {
+    user_email: "admin@gmail.com",
+    message: "Hello All",
+  },
+  {
+    user_email: "intecher@gmail.com",
+    message: "Hello Admin",
+  },
+  {
+    user_email: "intecher@gmail.com",
+    message: "are we all set for team lunch ?",
+  },
+  {
+    user_email: "janster@gmail.com",
+    message: "We are stuck in traffic",
+  },
+  {
+    user_email: "admin@gmail.com",
+    message: "Where were you stemmac?",
+  },
+  {
+    user_email: "stammac@gmail.com",
+    message: "I am with Janster",
+  },
+  {
+    user_email: "stammac@gmail.com",
+    message: "Will arrive in few minutes",
+  },
+  {
+    user_email: "user@gmail.com",
+    message: "I am already at the venue",
+  },
+];
+
 const corsOptions = {
   origin: "*",
   credentials: true,
@@ -151,39 +186,15 @@ app.get("/get_all_groups", verifyToken, async (request, response) => {
 
 // Get chat for a group
 app.get("/chat/", verifyToken, async (request, response) => {
-  const sampleData = [
-    {
-      user_email: "admin@gmail.com",
-      message: "Hello All",
-    },
-    {
-      user_email: "intecher@gmail.com",
-      message: "Hello Admin",
-    },
-    {
-      user_email: "intecher@gmail.com",
-      message: "are we all set for team lunch ?",
-    },
-    {
-      user_email: "janster@gmail.com",
-      message: "We are stuck in traffic",
-    },
-    {
-      user_email: "admin@gmail.com",
-      message: "Where were you stemmac?",
-    },
-    {
-      user_email: "stammac@gmail.com",
-      message: "I am with Janster",
-    },
-    {
-      user_email: "stammac@gmail.com",
-      message: "Will arrive in few minutes",
-    },
-    {
-      user_email: "user@gmail.com",
-      message: "I am already at the venue",
-    },
-  ];
-  response.send(JSON.stringify(sampleData));
+  response.send(JSON.stringify(chat));
+});
+
+// add a message
+app.put("/chat", jsonParser, verifyToken, async (request, response) => {
+  const { email, message } = request.body;
+  chat.push({
+    user_email: email,
+    message: message,
+  });
+  response.send(chat);
 });

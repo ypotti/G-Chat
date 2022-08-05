@@ -7,10 +7,12 @@ const TextMessage = ({ message, index, chat }) => {
   const currentUserEmail = Cookies.get("email");
 
   const getUserName = (mail) => {
-    const userName =
-      mail.split("@")[0][0].toUpperCase() +
-      mail.split("@")[0].slice(1, mail.split("@")[0].length);
-    return userName;
+    if (mail) {
+      const userName =
+        mail.split("@")[0][0].toUpperCase() +
+        mail.split("@")[0].slice(1, mail.split("@")[0].length);
+      return userName;
+    }
   };
 
   useEffect(() => {

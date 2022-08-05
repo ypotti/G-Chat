@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Group from "./Group";
 import Cookies from "js-cookie";
 import { FaTelegramPlane } from "react-icons/fa";
@@ -7,7 +7,9 @@ import "./style.css";
 
 const ChatSection = ({ selectedGroup }) => {
   const [chat, setChat] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const token = Cookies.get("token");
+  const email = Cookies.get("email");
 
   useEffect(() => {
     getChat();
@@ -23,6 +25,26 @@ const ChatSection = ({ selectedGroup }) => {
     });
     const data = await response.json();
     setChat(data);
+  };
+
+  const handleKeyDown = async (e) => {
+    if (e.key === "Enter" && newMessage !== "") {
+      const url = `http://localhost:8080/chat`;
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: email,
+          message: newMessage,
+        }),
+      });
+      const data = await response.json();
+      setChat(data);
+      setNewMessage("");
+    }
   };
 
   return (
@@ -44,6 +66,9 @@ const ChatSection = ({ selectedGroup }) => {
         <input
           className="input-field search message-input"
           placeholder="Type your message"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyUp={handleKeyDown}
         />
         <div className="send-wrap">
           <FaTelegramPlane className="send-icon" />
