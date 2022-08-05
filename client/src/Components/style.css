@@ -31,6 +31,18 @@
     border: 1px solid var(--secondary-text-color);
 }
 
+.message__avatar{
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+    padding: 0.2em;
+    text-align: center;
+    background-color: var(--avatar-bg-color);
+    color: var(--text-color);
+    border: 0.5px solid var(--secondary-text-color);
+}
+
 .User__name{
     color: var(--text-color);
     font-size: 1rem;
@@ -71,6 +83,36 @@
 .send-icon{
     font-size: 1.5rem;
 }
-.chat-footer{
+.chat-footer-90{
     width: 90%;
+}
+.chat-hero{
+    padding: 0.5em;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.message__wrap{
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.4em 1.2em;
+    border-radius: 1em;
+    border-top-left-radius: 0px;
+}
+.z-ind-neg{
+    z-index: -10;
+}
+
+.my-message{
+    border-top-left-radius: 1em;    
+    border-top-right-radius: 0px;
+    margin-right: 1em;
+    color: #f3f3f3;
+    background-color: var(--primary-color);
+    border: 1px solid #f3f3f3;
+}
+.my__avatar{
+    color: var(--primary-color);
+    background-color: transparent;
+    border:1px solid var(--primary-color);
 }

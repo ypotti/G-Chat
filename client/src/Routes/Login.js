@@ -18,6 +18,7 @@ const Login = () => {
     const removeCookies = () => {
       Cookies.remove("token");
       Cookies.remove("isAdmin");
+      Cookies.remove("email");
     };
     removeCookies();
   });
@@ -39,7 +40,8 @@ const Login = () => {
         // data has Token
         Cookies.set("token", data.jwtToken, { expires: 2 });
         Cookies.set("isAdmin", data.isAdmin, { expires: 2 });
-        console.log(data.isAdmin);
+        Cookies.set("email", data.user_email);
+        console.log(data.user_email);
 
         setEmail("");
         setError("");

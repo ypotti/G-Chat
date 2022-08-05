@@ -101,6 +101,7 @@ app.post("/login/", jsonParser, async (request, response) => {
       };
       const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
       response.send({
+        user_email: dbUser.email,
         jwtToken: jwtToken,
         isAdmin: dbUser.is_admin,
       });
@@ -116,13 +117,6 @@ app.get("/get_all_users", verifyToken, async (request, response) => {
   const getAllUsersQuery = `SELECT id, email, is_admin FROM user ;`;
   const users = await db.all(getAllUsersQuery);
   response.send(users);
-});
-
-// get_all_groups
-app.get("/get_all_groups", verifyToken, async (request, response) => {
-  const getAllGroupsQuery = `SELECT * FROM groups ;`;
-  const groups = await db.all(getAllGroupsQuery);
-  response.send(groups);
 });
 
 // Register a group
@@ -146,4 +140,50 @@ app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
     response.status(400);
     response.send(`Group already exists`);
   }
+});
+
+// get_all_groups
+app.get("/get_all_groups", verifyToken, async (request, response) => {
+  const getAllGroupsQuery = `SELECT * FROM groups ;`;
+  const groups = await db.all(getAllGroupsQuery);
+  response.send(groups);
+});
+
+// Get chat for a group
+app.get("/chat/", verifyToken, async (request, response) => {
+  const sampleData = [
+    {
+      user_email: "admin@gmail.com",
+      message: "Hello All",
+    },
+    {
+      user_email: "intecher@gmail.com",
+      message: "Hello Admin",
+    },
+    {
+      user_email: "intecher@gmail.com",
+      message: "are we all set for team lunch ?",
+    },
+    {
+      user_email: "janster@gmail.com",
+      message: "We are stuck in traffic",
+    },
+    {
+      user_email: "admin@gmail.com",
+      message: "Where were you stemmac?",
+    },
+    {
+      user_email: "stammac@gmail.com",
+      message: "I am with Janster",
+    },
+    {
+      user_email: "stammac@gmail.com",
+      message: "Will arrive in few minutes",
+    },
+    {
+      user_email: "user@gmail.com",
+      message: "I am already at the venue",
+    },
+  ];
+  response.send(JSON.stringify(sampleData));
 });
