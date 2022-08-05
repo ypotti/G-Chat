@@ -22,6 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const is_admin = Cookies.get("isAdmin");
   const token = Cookies.get("token");
+  const currentUserEmail = Cookies.get("email");
 
   useEffect(() => {
     const checkIfLogin = () => {
@@ -138,6 +139,7 @@ const Home = () => {
                 </div>
                 <div className="overflow-y scrollbar">
                   {allGroups
+                    .filter((group) => group.users.includes(currentUserEmail))
                     .filter((group) => group.name.includes(groupFilterValue))
                     .map((group) => (
                       <Group

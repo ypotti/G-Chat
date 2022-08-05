@@ -10,10 +10,19 @@ const ChatSection = ({ selectedGroup }) => {
   const [newMessage, setNewMessage] = useState("");
   const token = Cookies.get("token");
   const email = Cookies.get("email");
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     getChat();
   }, [selectedGroup]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView();
+  };
 
   const getChat = async () => {
     const url = `http://localhost:8080/chat?group_id=${selectedGroup.id}`;
@@ -61,6 +70,7 @@ const ChatSection = ({ selectedGroup }) => {
             key={index}
           />
         ))}
+        <div ref={messagesEndRef}  />
       </div>
       <div className="d-flex flex-row align-items-center chat-footer-90">
         <input
