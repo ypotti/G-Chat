@@ -119,27 +119,24 @@ app.get("/get_all_users", verifyToken, async (request, response) => {
 });
 
 // Register a group
-// app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
-//   const { email, isAdmin } = request.body;
-//   const hashedPassword = await bcrypt.hash(request.body.password, 10);
-//   const selectUserQuery = `SELECT * FROM user WHERE email = '${email}';`;
-//   const dbUser = await db.get(selectUserQuery);
-//   if (dbUser === undefined) {
-//     const createUserQuery = `
-//           INSERT INTO
-//             user (id,email, password,is_admin)
-//           VALUES
-//             (
-//               '${uuidv4()}',
-//               '${email}',
-//               '${hashedPassword}',
-//               '${isAdmin}'
-//             );`;
-//     const dbResponse = await db.run(createUserQuery);
-//     // const newUserId = dbResponse.lastID;
-//     response.send(`User Created Successfully`);
-//   } else {
-//     response.status(400);
-//     response.send(`User already exists`);
-//   }
-// });
+app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
+  const { name, users } = request.body;
+  const selectGroupQuery = `SELECT * FROM groups WHERE name = '${name}';`;
+  const dbGroup = await db.get(selectGroupQuery);
+  if (dbGroup === undefined) {
+    const createGroupQuery = `
+          INSERT INTO
+            groups (id,name,users)
+          VALUES
+            (
+              '${uuidv4()}',
+              '${name}',
+              '${JSON.stringify(users)}'
+            );`;
+    const dbResponse = await db.run(createGroupQuery);
+    response.send(`Group Created Successfully`);
+  } else {
+    response.status(400);
+    response.send(`Group already exists`);
+  }
+});

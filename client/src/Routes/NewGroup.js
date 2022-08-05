@@ -31,37 +31,37 @@ const NewGroup = () => {
   // Registering group
   const submitHandler = async (e) => {
     e.preventDefault();
-    // if (!error && email && password) {
-    //   const url = "http://localhost:8080/new-user/";
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     headers: { "Content-type": "application/json; charset=UTF-8" },
-    //     body: JSON.stringify({
-    //       name: name,
-    //       us: password,
-    //       isAdmin: isAdmin,
-    //     }),
-    //   });
-    //   const data = await response.text();
-    //   if (response.ok === true) {
-    //     console.log(data);
+    if (name !== "" && selectedUsers.length >= 2) {
+      setError("");
+      const url = "http://localhost:8080/new-group/";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: name,
+          users: JSON.stringify(selectedUsers),
+        }),
+      });
+      const data = await response.text();
+      if (response.ok === true) {
+        console.log(data);
 
-    //     setEmail("");
-    //     setError(data);
-    //     setPassword("");
-    //     setConfirmPassword("");
-    //   }
-    // } else {
-    //   if (!email) {
-    //     setError("Enter Email Id");
-    //   } else if (!password) {
-    //     setError("Enter Password");
-    //   } else if (password !== confirmPassword) {
-    //     setError("Passwords are not same");
-    //   } else {
-    //     setError("Enter all details");
-    //   }
-    // }
+        setError(data);
+        setName("");
+        setSelectedUsers([]);
+      }
+    } else {
+      if (name === "") {
+        setError("Enter Name");
+      } else if (selectedUsers.length < 2) {
+        setError("Select atleast 2 Users");
+      } else {
+        setError("Enter all details");
+      }
+    }
   };
 
   const statusHandler = (e, user) => {
@@ -91,7 +91,7 @@ const NewGroup = () => {
               <label className="label">Name:</label>
               <input
                 type="text"
-                placeholder="David"
+                placeholder="Developers-den"
                 className=" mb-3 input-field"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
