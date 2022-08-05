@@ -118,6 +118,13 @@ app.get("/get_all_users", verifyToken, async (request, response) => {
   response.send(users);
 });
 
+// get_all_groups
+app.get("/get_all_groups", verifyToken, async (request, response) => {
+  const getAllGroupsQuery = `SELECT * FROM groups ;`;
+  const groups = await db.all(getAllGroupsQuery);
+  response.send(groups);
+});
+
 // Register a group
 app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
   const { name, users } = request.body;

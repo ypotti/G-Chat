@@ -8,11 +8,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import ColorTheme from "../Components/ColorTheme";
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
-import { UsersContext } from "../App";
+import { UsersContext, GroupsContext } from "../App";
+import Group from "../Components/Group";
 
 const Home = () => {
   const { allUsers, setAllUsers } = useContext(UsersContext);
+  const { allGroups, setAllGroups } = useContext(GroupsContext);
   const [userFilterValue, setuserFilterValue] = useState("");
+  const [groupFilterValue, setGroupFilterValue] = useState("");
   const [tabSelected, setTabSelected] = useState("groups");
 
   const navigate = useNavigate();
@@ -39,6 +42,19 @@ const Home = () => {
       setAllUsers(data);
     };
     getAllUsers();
+
+    const getAllGroups = async () => {
+      const url = "http://localhost:8080/get_all_groups";
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setAllGroups(data);
+    };
+    getAllGroups();
   }, []);
 
   return (
@@ -113,7 +129,23 @@ const Home = () => {
               </div>
             ) : (
               <div className="group_wrap">
-                <AddGroup />
+                <div>
+                  <input
+                    type="text"
+                    className="search input-field"
+                    placeholder="Search a Group"
+                    value={groupFilterValue}
+                    onChange={(e) => setGroupFilterValue(e.target.value)}
+                  />
+                </div>
+                <div className="overflow-y">
+                  {allGroups
+                    .filter((group) => group.name.includes(groupFilterValue))
+                    .map((group) => (
+                      <Group group={group} key={group.id} />
+                    ))}
+                  <AddGroup />
+                </div>
               </div>
             )}
           </div>
