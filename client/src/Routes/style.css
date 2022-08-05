@@ -201,10 +201,7 @@
     background-color: red;
 }
 
-.Home__chat{
-    width: 70%;
-    height: 100%;
-}
+
 .burger-icon{
     color: var(--text-color);
     font-size: 1.5rem;

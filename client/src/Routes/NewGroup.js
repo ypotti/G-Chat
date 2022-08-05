@@ -146,7 +146,7 @@ const NewGroup = () => {
               {selectedUsers.length > 0 && (
                 <div>
                   <label className="label">Selected Users:</label>
-                  <div className="mb-4 pt-2">
+                  <div className="mb-4 pt-2 w-100 d-flex flex-wrap">
                     {selectedUsers.map((user) => (
                       <span key={user.id} className="listed-user mb-2 me-2">
                         {user.email.split("@")[0]}

@@ -49,3 +49,28 @@
     font-size: 1.5rem;
     color: var(--primary-color);
 }
+.Home__chat{
+    width: 70%;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.message-input{
+    margin: 1em !important;
+}
+.send-wrap{
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    padding: 0.5em;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    color: #f3f3f3
+}
+.send-icon{
+    font-size: 1.5rem;
+}
+.chat-footer{
+    width: 90%;
+}

@@ -4,18 +4,19 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
-import { GiHamburgerMenu } from "react-icons/gi";
 import ColorTheme from "../Components/ColorTheme";
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
 import { UsersContext, GroupsContext } from "../App";
 import Group from "../Components/Group";
+import ChatSection from "../Components/ChatSection";
 
 const Home = () => {
   const { allUsers, setAllUsers } = useContext(UsersContext);
   const { allGroups, setAllGroups } = useContext(GroupsContext);
   const [userFilterValue, setuserFilterValue] = useState("");
   const [groupFilterValue, setGroupFilterValue] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState({});
   const [tabSelected, setTabSelected] = useState("groups");
 
   const navigate = useNavigate();
@@ -103,9 +104,6 @@ const Home = () => {
                 Groups
               </button>
             </div>
-            <div className="burger-wrap">
-              <GiHamburgerMenu className="burger-icon" />
-            </div>
             {tabSelected === "users" ? (
               <div>
                 <div>
@@ -138,18 +136,24 @@ const Home = () => {
                     onChange={(e) => setGroupFilterValue(e.target.value)}
                   />
                 </div>
-                <div className="overflow-y">
+                <div className="overflow-y scrollbar">
                   {allGroups
                     .filter((group) => group.name.includes(groupFilterValue))
                     .map((group) => (
-                      <Group group={group} key={group.id} />
+                      <Group
+                        group={group}
+                        key={group.id}
+                        setSelectedGroup={setSelectedGroup}
+                      />
                     ))}
                   <AddGroup />
                 </div>
               </div>
             )}
           </div>
-          <div className="Home__chat bg-secondary">{/* Chat Section */}</div>
+          {selectedGroup?.users && (
+            <ChatSection selectedGroup={selectedGroup} />
+          )}
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />
