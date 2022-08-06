@@ -125,7 +125,6 @@
 
 .button-icon{
     font-size: 1.5rem;
-    margin-right: 0.3em;
     color: inherit;
 }
 /* HOME */
@@ -141,6 +140,10 @@
 .overflow-y{
     height: 65vh;
     overflow-y: auto;
+    -ms-overflow-style: none;
+}
+.overflow-y::-webkit-scrollbar{
+    display: none;
 }
 
 .Home__user{
@@ -240,6 +243,10 @@
     border: 1px solid var(--border-color);
     max-height: 200px;
     overflow-y: auto;
+    -ms-overflow-style: none;
+}
+.user-list-wrap::-webkit-scrollbar{
+    display: none;
 }
 
 .user-hover{

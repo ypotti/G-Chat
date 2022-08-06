@@ -90,6 +90,10 @@
     padding: 0.5em;
     overflow-y: auto;
     scroll-behavior: smooth;
+    -ms-overflow-style: none;
+}
+.chat-hero::-webkit-scrollbar{
+    display: none;
 }
 
 .message__wrap{

@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 
-const Group = ({ group, setSelectedGroup, setShowHome, showHome }) => {
+const Group = ({
+  group,
+  setSelectedGroup,
+  selectedGroup,
+  setShowHome,
+  showHome,
+}) => {
   const users = JSON.parse(JSON.parse(group.users));
 
   const getUsers = () => {
@@ -24,7 +30,9 @@ const Group = ({ group, setSelectedGroup, setShowHome, showHome }) => {
 
   return (
     <div
-      className="d-flex align-items-center User flex-grow-1"
+      className={`d-flex align-items-center User flex-grow-1 ${
+        group.name === selectedGroup?.name && ""
+      }`}
       onClick={clickHandler}
     >
       <div className="User__avatar">{group.name[0].toUpperCase()}</div>
@@ -32,7 +40,13 @@ const Group = ({ group, setSelectedGroup, setShowHome, showHome }) => {
         <div className="User__name">
           {group.name[0].toUpperCase() + group.name.slice(1, group.name.length)}
         </div>
-        <div className="User__email">Members: {getUsers()}</div>
+        <div
+          className={`User__email ${
+            showHome ? "d-block" : "d-none d-sm-block"
+          }`}
+        >
+          Members: {getUsers()}
+        </div>
       </div>
     </div>
   );

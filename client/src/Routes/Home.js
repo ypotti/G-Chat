@@ -83,12 +83,12 @@ const Home = () => {
                 className="me-5 Home__button"
               >
                 <BiUserPlus className="button-icon" />
-                Add a User
+                <span className="d-none d-md-inline ms-2">Add a User</span>
               </button>
             )}
             <button onClick={() => navigate("/login")} className="Home__button">
               <BiLogOut className="button-icon" />
-              Logout
+              <span className="d-none d-md-inline ms-2">Logout</span>
             </button>
           </div>
         </div>
@@ -157,6 +157,7 @@ const Home = () => {
                       <Group
                         group={group}
                         key={group.id}
+                        selectedGroup={selectedGroup}
                         setSelectedGroup={setSelectedGroup}
                         setShowHome={setShowHome}
                         showHome={showHome}
