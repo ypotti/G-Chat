@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
-const Group = ({ group, setSelectedGroup }) => {
+const Group = ({ group, setSelectedGroup, setShowHome, showHome }) => {
   const users = JSON.parse(JSON.parse(group.users));
+
   const getUsers = () => {
     let userNames = "";
     for (let i = 0; i < users.length; i++) {
@@ -16,10 +17,15 @@ const Group = ({ group, setSelectedGroup }) => {
     return userNames.slice(0, -2);
   };
 
+  const clickHandler = () => {
+    setSelectedGroup(group);
+    setShowHome(!showHome);
+  };
+
   return (
     <div
-      className="d-flex align-items-center User"
-      onClick={() => setSelectedGroup(group)}
+      className="d-flex align-items-center User flex-grow-1"
+      onClick={clickHandler}
     >
       <div className="User__avatar">{group.name[0].toUpperCase()}</div>
       <div className="w-75">

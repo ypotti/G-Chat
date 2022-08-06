@@ -18,6 +18,7 @@ const Home = () => {
   const [groupFilterValue, setGroupFilterValue] = useState("");
   const [selectedGroup, setSelectedGroup] = useState({});
   const [tabSelected, setTabSelected] = useState("groups");
+  const [showHome, setShowHome] = useState(false);
 
   const navigate = useNavigate();
   const is_admin = Cookies.get("isAdmin");
@@ -86,7 +87,11 @@ const Home = () => {
         </div>
         {/* Hero */}
         <div className="Home__Hero d-flex">
-          <div className="Home__user">
+          <div
+            className={`Home__user col-12 col-lg-4 ${
+              !showHome && "d-none"
+            } d-lg-block`}
+          >
             <div className="w-100">
               <button
                 className={`user__button  ${
@@ -146,6 +151,8 @@ const Home = () => {
                         group={group}
                         key={group.id}
                         setSelectedGroup={setSelectedGroup}
+                        setShowHome={setShowHome}
+                        showHome={showHome}
                       />
                     ))}
                   <AddGroup />
@@ -153,8 +160,14 @@ const Home = () => {
               </div>
             )}
           </div>
-          {selectedGroup?.users && (
-            <ChatSection selectedGroup={selectedGroup} />
+          {selectedGroup?.users ? (
+            <ChatSection
+              selectedGroup={selectedGroup}
+              showHome={showHome}
+              setShowHome={setShowHome}
+            />
+          ) : (
+            <div className="d-none d-lg-block">Select a group</div>
           )}
         </div>
         {/* Theme Switch Button*/}

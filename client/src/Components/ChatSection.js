@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Group from "./Group";
 import Cookies from "js-cookie";
 import { FaTelegramPlane } from "react-icons/fa";
+import { IoChevronBackCircle } from "react-icons/io5";
 import TextMessage from "./TextMessage";
 import "./style.css";
 
-const ChatSection = ({ selectedGroup }) => {
+const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
   const [chat, setChat] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const token = Cookies.get("token");
@@ -57,8 +58,18 @@ const ChatSection = ({ selectedGroup }) => {
   };
 
   return (
-    <div className="Home__chat d-flex flex-column justify-content-between align-items-center">
-      <div className="w-100">
+    <div
+      className={`Home__chat col-12 col-lg-8 d-lg-flex d-flex  flex-column justify-content-between align-items-center ${
+        showHome && "d-none"
+      }`}
+    >
+      <div className="w-100 d-flex">
+        <div
+          className="add-border d-flex align-items-center p-2 d-lg-none"
+          onClick={() => setShowHome(!showHome)}
+        >
+          <IoChevronBackCircle className="ColorTheme__icon" />
+        </div>
         <Group group={selectedGroup} />
       </div>
       <div className="chat-footer-90 flex-grow-1 chat-hero scrollbar pt-3">
@@ -70,7 +81,7 @@ const ChatSection = ({ selectedGroup }) => {
             key={index}
           />
         ))}
-        <div ref={messagesEndRef}  />
+        <div ref={messagesEndRef} />
       </div>
       <div className="d-flex flex-row align-items-center chat-footer-90">
         <input

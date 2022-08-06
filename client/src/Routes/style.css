@@ -144,7 +144,7 @@
 }
 
 .Home__user{
-    width: 30%;
+    /* width: 30%; */
     border-right: 2px solid var(--border-color);
     position: relative;
     overflow-x: hidden;
