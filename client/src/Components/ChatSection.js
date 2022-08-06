@@ -38,25 +38,28 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
   };
 
   const sendMessage = async () => {
-    const url = `http://20.214.162.222:8080/chat`;
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        email: email,
-        message: newMessage,
-      }),
-    });
-    const data = await response.json();
-    setChat(data);
-    setNewMessage("");
+    if (newMessage !== "") {
+      const url = `http://20.214.162.222:8080/chat`;
+      const enteredMessage = newMessage;
+      setNewMessage("");
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: email,
+          message: newMessage,
+        }),
+      });
+      const data = await response.json();
+      setChat(data);
+    }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && newMessage !== "") {
+    if (e.key === "Enter") {
       sendMessage();
     }
   };
