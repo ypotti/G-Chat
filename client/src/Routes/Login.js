@@ -28,7 +28,7 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (email && password) {
-      const url = `http://localhost:8080/login/`;
+      const url = `http://20.214.162.222:8080/login/`;
       setIsLoading(true);
       const response = await fetch(url, {
         method: "POST",

@@ -32,7 +32,7 @@ const Register = () => {
     e.preventDefault();
     if (!error && email && password) {
       setIsLoading(true);
-      const url = "http://localhost:8080/register/";
+      const url = "http://20.214.162.222:8080/register/";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-type": "application/json; charset=UTF-8" },

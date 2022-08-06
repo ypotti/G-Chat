@@ -26,7 +26,7 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
   };
 
   const getChat = async () => {
-    const url = `http://localhost:8080/chat?group_id=${selectedGroup.id}`;
+    const url = `http://20.214.162.222:8080/chat?group_id=${selectedGroup.id}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -38,7 +38,7 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
   };
 
   const sendMessage = async () => {
-    const url = `http://localhost:8080/chat`;
+    const url = `http://20.214.162.222:8080/chat`;
     const response = await fetch(url, {
       method: "PUT",
       headers: {

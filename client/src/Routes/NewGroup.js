@@ -33,7 +33,7 @@ const NewGroup = () => {
     e.preventDefault();
     if (name !== "" && selectedUsers.length >= 2) {
       setError("");
-      const url = "http://localhost:8080/new-group/";
+      const url = "http://20.214.162.222:8080/new-group/";
       const response = await fetch(url, {
         method: "POST",
         headers: {

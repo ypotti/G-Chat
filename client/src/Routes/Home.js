@@ -20,7 +20,7 @@ const Home = () => {
   const [groupFilterValue, setGroupFilterValue] = useState("");
   const [selectedGroup, setSelectedGroup] = useState({});
   const [tabSelected, setTabSelected] = useState("groups");
-  const [showHome, setShowHome] = useState(false);
+  const [showHome, setShowHome] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Home = () => {
     checkIfLogin();
 
     const getAllUsers = async () => {
-      const url = "http://localhost:8080/get_all_users";
+      const url = "http://20.214.162.222:8080/get_all_users";
       setIsLoading(true);
       const response = await fetch(url, {
         method: "GET",
@@ -52,7 +52,7 @@ const Home = () => {
     getAllUsers();
 
     const getAllGroups = async () => {
-      const url = "http://localhost:8080/get_all_groups";
+      const url = "http://20.214.162.222:8080/get_all_groups";
       setIsLoading(true);
       const response = await fetch(url, {
         method: "GET",
