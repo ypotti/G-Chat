@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import ColorTheme from "../Components/ColorTheme";
 import { BsFillChatQuoteFill } from "react-icons/bs";
+import Loading from "../Components/Loading";
 import "./style.css";
 
 const Register = () => {
@@ -11,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!error && email && password) {
+      setIsLoading(true);
       const url = "http://localhost:8080/register/";
       const response = await fetch(url, {
         method: "POST",
@@ -40,6 +43,7 @@ const Register = () => {
         }),
       });
       const data = await response.text();
+      setIsLoading(false);
       if (response.ok === true) {
         console.log(data);
 
@@ -137,6 +141,7 @@ const Register = () => {
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />
+        {isLoading && <Loading />}
       </div>
     </div>
   );

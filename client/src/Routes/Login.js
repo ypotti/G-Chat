@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import ColorTheme from "../Components/ColorTheme";
+import Loading from "../Components/Loading";
 
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import "./style.css";
@@ -11,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,6 +29,7 @@ const Login = () => {
     e.preventDefault();
     if (email && password) {
       const url = `http://localhost:8080/login/`;
+      setIsLoading(true);
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -37,7 +40,7 @@ const Login = () => {
       });
       if (response.ok === true) {
         const data = await response.json();
-        // data has Token
+        setIsLoading(false);
         Cookies.set("token", data.jwtToken, { expires: 2 });
         Cookies.set("isAdmin", data.isAdmin, { expires: 2 });
         Cookies.set("email", data.user_email);
@@ -52,6 +55,7 @@ const Login = () => {
       } else {
         const data = await response.text();
         setError(data);
+        setIsLoading(false);
       }
     } else {
       if (!email) {
@@ -108,6 +112,7 @@ const Login = () => {
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />
+        {isLoading && <Loading />}
       </div>
     </div>
   );

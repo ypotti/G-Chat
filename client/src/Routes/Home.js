@@ -9,7 +9,9 @@ import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
 import { UsersContext, GroupsContext } from "../App";
 import Group from "../Components/Group";
+import { TiGroup } from "react-icons/ti";
 import ChatSection from "../Components/ChatSection";
+import Loading from "../Components/Loading";
 
 const Home = () => {
   const { allUsers, setAllUsers } = useContext(UsersContext);
@@ -19,6 +21,7 @@ const Home = () => {
   const [selectedGroup, setSelectedGroup] = useState({});
   const [tabSelected, setTabSelected] = useState("groups");
   const [showHome, setShowHome] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const is_admin = Cookies.get("isAdmin");
@@ -35,6 +38,7 @@ const Home = () => {
 
     const getAllUsers = async () => {
       const url = "http://localhost:8080/get_all_users";
+      setIsLoading(true);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -42,12 +46,14 @@ const Home = () => {
         },
       });
       const data = await response.json();
+      setIsLoading(false);
       setAllUsers(data);
     };
     getAllUsers();
 
     const getAllGroups = async () => {
       const url = "http://localhost:8080/get_all_groups";
+      setIsLoading(true);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -55,6 +61,7 @@ const Home = () => {
         },
       });
       const data = await response.json();
+      setIsLoading(false);
       setAllGroups(data);
     };
     getAllGroups();
@@ -167,11 +174,15 @@ const Home = () => {
               setShowHome={setShowHome}
             />
           ) : (
-            <div className="d-none d-lg-block">Select a group</div>
+            <div className="Home__chat w-100 d-none d-lg-flex flex-column align-items-center justify-content-center">
+              <TiGroup className="Select_Group-Icon" />
+              <div className="Select_Group-text">Select a group to CHAT</div>
+            </div>
           )}
         </div>
         {/* Theme Switch Button*/}
         <ColorTheme />
+        {isLoading && <Loading />}
       </div>
     </div>
   );

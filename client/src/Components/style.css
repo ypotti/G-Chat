@@ -119,3 +119,20 @@
 .add-border{
     border-bottom: 2px solid var(--border-color);
 }
+.Loading{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    background-color: var(--avatar-bg-color);
+    opacity: 0.6;
+}
+.Select_Group-Icon{
+    font-size: 7rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-text-color);
+}
+.Select_Group-text{
+    color: var(--secondary-text-color);
+}
