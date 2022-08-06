@@ -37,23 +37,27 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
     setChat(data);
   };
 
-  const handleKeyDown = async (e) => {
+  const sendMessage = async () => {
+    const url = `http://localhost:8080/chat`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        email: email,
+        message: newMessage,
+      }),
+    });
+    const data = await response.json();
+    setChat(data);
+    setNewMessage("");
+  };
+
+  const handleKeyDown = (e) => {
     if (e.key === "Enter" && newMessage !== "") {
-      const url = `http://localhost:8080/chat`;
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          email: email,
-          message: newMessage,
-        }),
-      });
-      const data = await response.json();
-      setChat(data);
-      setNewMessage("");
+      sendMessage();
     }
   };
 
@@ -91,7 +95,7 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyUp={handleKeyDown}
         />
-        <div className="send-wrap">
+        <div className="send-wrap" onClick={sendMessage}>
           <FaTelegramPlane className="send-icon" />
         </div>
       </div>

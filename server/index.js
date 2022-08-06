@@ -5,6 +5,8 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
+const dotenv = require("dotenv");
+dotenv.config();
 
 let chat = [
   {
@@ -85,7 +87,7 @@ const verifyToken = async (request, response, next) => {
     response.status(401);
     response.send("Invalid JWT Token");
   } else {
-    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
+    jwt.verify(jwtToken, process.env.secret, async (error, payload) => {
       if (error) {
         response.status(401);
         response.send("Invalid JWT Token");
@@ -113,7 +115,6 @@ app.post("/register/", jsonParser, async (request, response) => {
               '${isAdmin}'
             );`;
     const dbResponse = await db.run(createUserQuery);
-    // const newUserId = dbResponse.lastID;
     response.send(`User Created Successfully`);
   } else {
     response.status(400);
@@ -134,7 +135,7 @@ app.post("/login/", jsonParser, async (request, response) => {
       const payload = {
         email: email,
       };
-      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+      const jwtToken = jwt.sign(payload, process.env.secret);
       response.send({
         user_email: dbUser.email,
         jwtToken: jwtToken,
