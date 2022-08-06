@@ -35,20 +35,6 @@ const Home = () => {
       }
     };
     checkIfLogin();
-
-    const getAllUsers = async () => {
-      const url = "http://20.214.162.222:8080/get_all_users";
-      setIsLoading(true);
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      setIsLoading(false);
-      setAllUsers(data);
-    };
     getAllUsers();
 
     const getAllGroups = async () => {
@@ -66,6 +52,20 @@ const Home = () => {
     };
     getAllGroups();
   }, []);
+
+  const getAllUsers = async () => {
+    const url = "http://20.214.162.222:8080/get_all_users";
+    setIsLoading(true);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    setIsLoading(false);
+    setAllUsers(data);
+  };
 
   return (
     <div className="Login__bg d-flex flex-row justify-content-center">
@@ -134,7 +134,11 @@ const Home = () => {
                       user.email.split("@")[0].includes(userFilterValue)
                     )
                     .map((user) => (
-                      <User key={user.id} user={user} />
+                      <User
+                        key={user.id}
+                        user={user}
+                        getAllUsers={getAllUsers}
+                      />
                     ))}
                 </div>
               </div>

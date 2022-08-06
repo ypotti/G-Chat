@@ -155,6 +155,23 @@ app.get("/get_all_users", verifyToken, async (request, response) => {
   response.send(users);
 });
 
+// delete-user
+app.delete(
+  "/delete-user",
+  jsonParser,
+  verifyToken,
+  async (request, response) => {
+    const { email } = request.body;
+    const deleteUserQuery = `DELETE FROM user WHERE email='${email}';`;
+    try {
+      const data = await db.run(deleteUserQuery);
+      response.send(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 // Register a group
 app.post("/new-group/", jsonParser, verifyToken, async (request, response) => {
   const { name, users } = request.body;
