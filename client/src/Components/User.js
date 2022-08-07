@@ -6,7 +6,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 const User = ({ user, getAllUsers }) => {
   const name = user.email.split("@")[0];
   const token = Cookies.get("token");
-  const email = Cookies.get("email");
   const isAdmin = Cookies.get("isAdmin");
 
   const deleteUser = async () => {
@@ -45,7 +44,7 @@ const User = ({ user, getAllUsers }) => {
       </div>
       {isAdmin === "true" && (
         <div
-          className="ms-auto me-2 p-2 d-flex align-items-center align-self-stretch"
+          className="ms-auto me-2 p-2 d-flex align-items-center align-self-stretch pointer"
           onClick={deleteUser}
         >
           <RiDeleteBin6Line />

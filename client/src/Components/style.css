@@ -15,7 +15,6 @@
 
 .User{
     border-bottom: 2px solid var(--border-color);
-    cursor: pointer;
 }
 
 .User__avatar{
@@ -129,8 +128,7 @@
     height: 100vh;
     top: 0px;
     left: 0px;
-    background-color: var(--avatar-bg-color);
-    opacity: 0.6;
+    background-color: rgba(87,90,91,0.6);
 }
 .Select_Group-Icon{
     font-size: 7rem;
@@ -139,4 +137,13 @@
 }
 .Select_Group-text{
     color: var(--secondary-text-color);
+}
+.Consent__wrap{
+    opacity: 1;
+    background-color: var(--bg-color);
+}
+.Consent__Icon{
+    font-size: 5rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.5em;
 }

@@ -12,6 +12,7 @@ import Group from "../Components/Group";
 import { TiGroup } from "react-icons/ti";
 import ChatSection from "../Components/ChatSection";
 import Loading from "../Components/Loading";
+import Consent from "../Components/Consent";
 
 const Home = () => {
   const { allUsers, setAllUsers } = useContext(UsersContext);
@@ -22,6 +23,7 @@ const Home = () => {
   const [tabSelected, setTabSelected] = useState("groups");
   const [showHome, setShowHome] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [showConsent, setShowConsent] = useState(false);
 
   const navigate = useNavigate();
   const is_admin = Cookies.get("isAdmin");
@@ -67,6 +69,10 @@ const Home = () => {
     setAllUsers(data);
   };
 
+  const logout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="Login__bg d-flex flex-row justify-content-center">
       <div className="Login__Content-Box d-flex flex-column">
@@ -86,7 +92,10 @@ const Home = () => {
                 <span className="d-none d-md-inline ms-2">Add a User</span>
               </button>
             )}
-            <button onClick={() => navigate("/login")} className="Home__button">
+            <button
+              onClick={() => setShowConsent(true)}
+              className="Home__button"
+            >
               <BiLogOut className="button-icon" />
               <span className="d-none d-md-inline ms-2">Logout</span>
             </button>
@@ -188,6 +197,9 @@ const Home = () => {
         {/* Theme Switch Button*/}
         <ColorTheme />
         {isLoading && <Loading />}
+        {showConsent && (
+          <Consent logout={logout} setShowConsent={setShowConsent} />
+        )}
       </div>
     </div>
   );
