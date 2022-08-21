@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { BsFillChatQuoteFill } from "react-icons/bs";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
-import ColorTheme from "../Components/ColorTheme";
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
 import { UsersContext, GroupsContext } from "../App";
@@ -13,6 +11,7 @@ import { TiGroup } from "react-icons/ti";
 import ChatSection from "../Components/ChatSection";
 import Loading from "../Components/Loading";
 import Consent from "../Components/Consent";
+import BrandLogo from "../Components/BrandLogo";
 
 const Home = () => {
   const { allUsers, setAllUsers } = useContext(UsersContext);
@@ -38,22 +37,22 @@ const Home = () => {
     };
     checkIfLogin();
     getAllUsers();
-
-    const getAllGroups = async () => {
-      const url = "http://20.214.162.222:8080/get_all_groups";
-      setIsLoading(true);
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      setIsLoading(false);
-      setAllGroups(data);
-    };
     getAllGroups();
   }, []);
+
+  const getAllGroups = async () => {
+    const url = "http://20.214.162.222:8080/get_all_groups";
+    setIsLoading(true);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    setIsLoading(false);
+    setAllGroups(data);
+  };
 
   const getAllUsers = async () => {
     const url = "http://20.214.162.222:8080/get_all_users";
@@ -78,10 +77,7 @@ const Home = () => {
       <div className="Login__Content-Box d-flex flex-column">
         {/* Brand and logout button */}
         <div className="d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center">
-            <BsFillChatQuoteFill className="Login__brand-icon" />
-            <em className="Login__brand-name">G-Chat</em>
-          </div>
+          <BrandLogo />
           <div className="d-flex">
             {is_admin === "true" && (
               <button

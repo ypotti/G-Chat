@@ -32,9 +32,9 @@ function App() {
                 <Route path="/new-group" element={<NewGroup />} />
                 <Route path="/" element={<Home />} />
               </Routes>
+              {/* Switch Theme Button */}
+              <ColorTheme />
             </Router>
-            {/* Switch Theme Button */}
-            <ColorTheme />
           </div>
         </GroupsContext.Provider>
       </UsersContext.Provider>

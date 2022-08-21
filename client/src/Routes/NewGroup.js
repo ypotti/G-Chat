@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import ColorTheme from "../Components/ColorTheme";
-import { BsFillChatQuoteFill } from "react-icons/bs";
+import BrandLogo from "../Components/BrandLogo";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { UsersContext } from "../App";
 import "./style.css";
@@ -78,11 +77,7 @@ const NewGroup = () => {
   return (
     <div className="Login__bg d-flex flex-row justify-content-center">
       <div className="Login__Content-Box d-flex flex-column">
-        {/* Brand */}
-        <div className="d-flex align-items-center">
-          <BsFillChatQuoteFill className="Login__brand-icon" />
-          <em className="Login__brand-name">G-Chat</em>
-        </div>
+        <BrandLogo />
         {/* Hero */}
         <div className="mt-3 d-flex justify-content-center Login__Hero">
           <div className="w-100 d-flex flex-column justify-content-center align-items-center Login__Box">
