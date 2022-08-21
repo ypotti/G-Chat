@@ -5,6 +5,7 @@ import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import Home from "./Routes/Home";
 import NewGroup from "./Routes/NewGroup";
+import ColorTheme from "./Components/ColorTheme";
 
 export const ThemeContext = createContext("");
 export const UsersContext = createContext();
@@ -32,6 +33,8 @@ function App() {
                 <Route path="/" element={<Home />} />
               </Routes>
             </Router>
+            {/* Switch Theme Button */}
+            <ColorTheme />
           </div>
         </GroupsContext.Provider>
       </UsersContext.Provider>

@@ -9,8 +9,8 @@ import { BsFillChatQuoteFill } from "react-icons/bs";
 import "./style.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("abc");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -110,8 +110,6 @@ const Login = () => {
             </form>
           </div>
         </div>
-        {/* Theme Switch Button*/}
-        <ColorTheme />
         {isLoading && <Loading />}
       </div>
     </div>

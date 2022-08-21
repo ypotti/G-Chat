@@ -171,8 +171,6 @@ const NewGroup = () => {
             </form>
           </div>
         </div>
-        {/* Theme Switch Button*/}
-        <ColorTheme />
       </div>
     </div>
   );

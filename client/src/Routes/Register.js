@@ -139,8 +139,6 @@ const Register = () => {
             </form>
           </div>
         </div>
-        {/* Theme Switch Button*/}
-        <ColorTheme />
         {isLoading && <Loading />}
       </div>
     </div>

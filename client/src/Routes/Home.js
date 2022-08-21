@@ -194,8 +194,6 @@ const Home = () => {
             </div>
           )}
         </div>
-        {/* Theme Switch Button*/}
-        <ColorTheme />
         {isLoading && <Loading />}
         {showConsent && (
           <Consent logout={logout} setShowConsent={setShowConsent} />
