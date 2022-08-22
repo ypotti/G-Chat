@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 import TextMessage from "./TextMessage";
 import Group from "./Group";
+import { BackendIp } from "../App";
 import "./style.css";
 
 const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
@@ -27,7 +28,7 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
   };
 
   const getChat = async () => {
-    const url = `http://20.214.162.222:8080/chat?group_id=${selectedGroup.id}`;
+    const url = `${BackendIp}/chat?group_id=${selectedGroup.id}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -40,22 +41,26 @@ const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {
 
   const sendMessage = async () => {
     if (newMessage !== "") {
-      const url = `http://20.214.162.222:8080/chat`;
-      const enteredMessage = newMessage;
+      const url = `${BackendIp}/chat`;
       setNewMessage("");
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          email: email,
-          message: newMessage,
-        }),
-      });
-      const data = await response.json();
-      setChat(data);
+      // API Call to send message and Update chat in UI if Success
+      try {
+        const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            email: email,
+            message: newMessage,
+          }),
+        });
+        const data = await response.json();
+        setChat(data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

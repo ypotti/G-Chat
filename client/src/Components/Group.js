@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const Group = ({
   group,
@@ -9,6 +9,7 @@ const Group = ({
 }) => {
   const users = JSON.parse(JSON.parse(group.users));
 
+  // Returing all the user names in a group 
   const getUsers = () => {
     let userNames = "";
     for (let i = 0; i < users.length; i++) {

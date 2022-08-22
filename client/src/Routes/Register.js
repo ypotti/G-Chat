@@ -1,9 +1,10 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import BrandLogo from "../Components/BrandLogo";
 import Loading from "../Components/Loading";
+import { BackendIp } from "../App";
 import "./style.css";
 
 const Register = () => {
@@ -31,27 +32,33 @@ const Register = () => {
     e.preventDefault();
     if (!error && email && password) {
       setIsLoading(true);
-      const url = "http://20.214.162.222:8080/register/";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          isAdmin: isAdmin,
-        }),
-      });
-      const data = await response.text();
-      setIsLoading(false);
-      if (response.ok === true) {
-        console.log(data);
+      const url = `${BackendIp}/register/`;
+      // API Call to register User
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            isAdmin: isAdmin,
+          }),
+        });
+        const data = await response.text();
+        setIsLoading(false);
+        if (response.ok === true) {
+          console.log(data);
 
-        setEmail("");
-        setError(data);
-        setPassword("");
-        setConfirmPassword("");
+          setEmail("");
+          setError(data);
+          setPassword("");
+          setConfirmPassword("");
+        }
+      } catch (error) {
+        console.log(error);
       }
     } else {
+      // Handling error messages
       if (!email) {
         setError("Enter Email Id");
       } else if (!password) {

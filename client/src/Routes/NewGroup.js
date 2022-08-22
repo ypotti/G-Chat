@@ -4,7 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Cookies from "js-cookie";
 
 import BrandLogo from "../Components/BrandLogo";
-import { UsersContext } from "../App";
+import { UsersContext, BackendIp } from "../App";
 import "./style.css";
 
 const NewGroup = () => {
@@ -32,27 +32,31 @@ const NewGroup = () => {
     e.preventDefault();
     if (name !== "" && selectedUsers.length >= 2) {
       setError("");
-      const url = "http://20.214.162.222:8080/new-group/";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: name,
-          users: JSON.stringify(selectedUsers),
-        }),
-      });
-      const data = await response.text();
-      if (response.ok === true) {
-        console.log(data);
-
-        setError(data);
-        setName("");
-        setSelectedUsers([]);
+      const url = `${BackendIp}/new-group/`;
+      // API Call to Register a New Group
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            name: name,
+            users: JSON.stringify(selectedUsers),
+          }),
+        });
+        const data = await response.text();
+        if (response.ok === true) {
+          setError(data);
+          setName("");
+          setSelectedUsers([]);
+        }
+      } catch (error) {
+        console.log(error);
       }
     } else {
+      // Handling error messages
       if (name === "") {
         setError("Enter Name");
       } else if (selectedUsers.length < 2) {

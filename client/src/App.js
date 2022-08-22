@@ -12,6 +12,8 @@ export const ThemeContext = createContext("");
 export const UsersContext = createContext();
 export const GroupsContext = createContext();
 
+export const BackendIp = "http://20.214.162.222:8080";
+
 function App() {
   const [theme, setTheme] = useState("light");
   const [allUsers, setAllUsers] = useState([]);

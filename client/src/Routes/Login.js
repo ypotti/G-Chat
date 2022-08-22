@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 import Loading from "../Components/Loading";
 import BrandLogo from "../Components/BrandLogo";
+import { BackendIp } from "../App";
 import "./style.css";
 
 const Login = () => {
@@ -27,36 +28,42 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (email && password) {
-      const url = `http://20.214.162.222:8080/login/`;
+      const url = `${BackendIp}/login/`;
       setIsLoading(true);
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      if (response.ok === true) {
+      // API Call to login and set cookies upon success
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
         const data = await response.json();
-        setIsLoading(false);
-        Cookies.set("token", data.jwtToken, { expires: 2 });
-        Cookies.set("isAdmin", data.isAdmin, { expires: 2 });
-        Cookies.set("email", data.user_email);
-        console.log(data.user_email);
+        if (response.ok === true) {
+          setIsLoading(false);
+          Cookies.set("token", data.jwtToken, { expires: 2 });
+          Cookies.set("isAdmin", data.isAdmin, { expires: 2 });
+          Cookies.set("email", data.user_email, { expires: 2 });
+          console.log(data.user_email);
 
-        setEmail("");
-        setError("");
-        setPassword("");
+          setEmail("");
+          setError("");
+          setPassword("");
 
-        // Navigating to Home Page
-        navigate("/");
-      } else {
-        const data = await response.text();
-        setError(data);
-        setIsLoading(false);
+          // Navigating to Home Page
+          navigate("/");
+        } else {
+          const data = await response.text();
+          setError(data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
     } else {
+      // Handling Error message
       if (!email) {
         setError("Enter Email Id");
       } else if (!password) {

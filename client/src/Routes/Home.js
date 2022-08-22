@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
 import { TiGroup } from "react-icons/ti";
@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
-import { UsersContext, GroupsContext } from "../App";
+import { UsersContext, GroupsContext, BackendIp } from "../App";
 import Group from "../Components/Group";
 import ChatSection from "../Components/ChatSection";
 import Loading from "../Components/Loading";
@@ -30,42 +30,53 @@ const Home = () => {
   const currentUserEmail = Cookies.get("email");
 
   useEffect(() => {
-    const checkIfLogin = () => {
-      if (!token) {
-        navigate("/login");
-      }
-    };
     checkIfLogin();
     getAllUsers();
     getAllGroups();
   }, []);
 
+  const checkIfLogin = () => {
+    if (!token) {
+      navigate("/login");
+    }
+  };
+
   const getAllGroups = async () => {
-    const url = "http://20.214.162.222:8080/get_all_groups";
+    const url = `${BackendIp}/get_all_groups`;
     setIsLoading(true);
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    setIsLoading(false);
-    setAllGroups(data);
+    // API Call to get All groups
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setIsLoading(false);
+      setAllGroups(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getAllUsers = async () => {
-    const url = "http://20.214.162.222:8080/get_all_users";
+    const url = `${BackendIp}/get_all_users`;
     setIsLoading(true);
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    setIsLoading(false);
-    setAllUsers(data);
+    // API Call to get all users data
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setIsLoading(false);
+      setAllUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const logout = () => {
