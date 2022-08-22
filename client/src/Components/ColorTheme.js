@@ -1,12 +1,11 @@
-import React from "react";
+import React,{useContext} from "react";
 import {
   BsFillBrightnessHighFill,
   BsFillBrightnessAltLowFill,
 } from "react-icons/bs";
-import "./style.css";
-import { useContext } from "react";
 
 import { ThemeContext } from "../App";
+import "./style.css";
 
 const ColorTheme = () => {
   const { theme, changeTheme } = useContext(ThemeContext);

@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import BrandLogo from "../Components/BrandLogo";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import Cookies from "js-cookie";
+
+import BrandLogo from "../Components/BrandLogo";
 import { UsersContext } from "../App";
 import "./style.css";
 

@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React,{useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+
 import BrandLogo from "../Components/BrandLogo";
 import Loading from "../Components/Loading";
 import "./style.css";

@@ -1,7 +1,7 @@
-import Cookies from "js-cookie";
 import React from "react";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Cookies from "js-cookie";
 
 const User = ({ user, getAllUsers }) => {
   const name = user.email.split("@")[0];

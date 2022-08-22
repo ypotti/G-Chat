@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
-import Cookies from "js-cookie";
+import React, { useContext, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiLogOut, BiUserPlus } from "react-icons/bi";
+import { TiGroup } from "react-icons/ti";
+import Cookies from "js-cookie";
+
 import User from "../Components/User";
 import AddGroup from "../Components/AddGroup";
 import { UsersContext, GroupsContext } from "../App";
 import Group from "../Components/Group";
-import { TiGroup } from "react-icons/ti";
 import ChatSection from "../Components/ChatSection";
 import Loading from "../Components/Loading";
 import Consent from "../Components/Consent";

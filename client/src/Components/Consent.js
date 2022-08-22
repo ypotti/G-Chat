@@ -1,6 +1,6 @@
 import React from "react";
-import "./style.css";
 import { BsQuestionOctagonFill } from "react-icons/bs";
+import "./style.css";
 
 const Consent = ({ logout, setShowConsent }) => {
   const proceedHandler = () => {

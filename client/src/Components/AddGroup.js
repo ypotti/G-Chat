@@ -1,7 +1,7 @@
 import React from "react";
-import "./style.css";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 const AddGroup = () => {
   const navigate = useNavigate();

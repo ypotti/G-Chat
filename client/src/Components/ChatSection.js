@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import Group from "./Group";
-import Cookies from "js-cookie";
 import { FaTelegramPlane } from "react-icons/fa";
 import { IoChevronBackCircle } from "react-icons/io5";
+import Cookies from "js-cookie";
+
 import TextMessage from "./TextMessage";
+import Group from "./Group";
 import "./style.css";
 
 const ChatSection = ({ selectedGroup, showHome, setShowHome }) => {

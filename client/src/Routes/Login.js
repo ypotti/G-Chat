@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+
 import Loading from "../Components/Loading";
 import BrandLogo from "../Components/BrandLogo";
 import "./style.css";
