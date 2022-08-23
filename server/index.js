@@ -77,6 +77,7 @@ const initializeDBAndServer = async () => {
 
 initializeDBAndServer();
 
+// Verifying JWT Token
 const verifyToken = async (request, response, next) => {
   let jwtToken;
   const authHeader = request.headers["authorization"];
@@ -98,6 +99,7 @@ const verifyToken = async (request, response, next) => {
   }
 };
 
+// Registering a user
 app.post("/register/", jsonParser, async (request, response) => {
   const { email, isAdmin } = request.body;
   const hashedPassword = await bcrypt.hash(request.body.password, 10);
@@ -122,6 +124,7 @@ app.post("/register/", jsonParser, async (request, response) => {
   }
 });
 
+// User Login
 app.post("/login/", jsonParser, async (request, response) => {
   const { email, password } = request.body;
   const selectUserQuery = `SELECT * FROM user WHERE email = '${email}';`;
@@ -147,6 +150,11 @@ app.post("/login/", jsonParser, async (request, response) => {
     }
   }
   console.log(new Date());
+});
+
+// verify JWT
+app.get("/verify_token", verifyToken, async (request, response) => {
+  response.send("Token Verified Successfully");
 });
 
 // get_all_users

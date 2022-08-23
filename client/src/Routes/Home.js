@@ -35,9 +35,23 @@ const Home = () => {
     getAllGroups();
   }, []);
 
-  const checkIfLogin = () => {
-    if (!token) {
-      navigate("/login");
+  const checkIfLogin = async () => {
+    if (!token) navigate("/login");
+
+    // API Call to verify JWT token
+    const url = `${BackendIp}/verify_token`;
+    setIsLoading(true);
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok !== true) navigate("/login");
+      console.log(response.ok);
+    } catch (error) {
+      console.log(error);
     }
   };
 
