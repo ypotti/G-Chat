@@ -9,8 +9,8 @@ import { BackendIp } from "../App";
 import "./style.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("abc");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

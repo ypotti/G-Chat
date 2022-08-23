@@ -18,14 +18,16 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkIfLogin = () => {
-      const is_admin = Cookies.get("isAdmin");
-      if (is_admin === "false" || !is_admin) {
-        navigate("/");
-      }
-    };
-    checkIfLogin();
+    checkIsAdmin();
   }, []);
+
+  // Checking if Logged In User is Admin or Not
+  const checkIsAdmin = () => {
+    const is_admin = Cookies.get("isAdmin");
+    if (is_admin === "false" || !is_admin) {
+      navigate("/");
+    }
+  };
 
   // Registering user
   const submitHandler = async (e) => {

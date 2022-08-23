@@ -49,7 +49,6 @@ const Home = () => {
         },
       });
       if (response.ok !== true) navigate("/login");
-      console.log(response.ok);
     } catch (error) {
       console.log(error);
     }

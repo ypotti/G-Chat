@@ -19,13 +19,26 @@ const NewGroup = () => {
   const token = Cookies.get("token");
 
   useEffect(() => {
-    const checkIfLogin = () => {
-      if (!token) {
-        navigate("/login");
-      }
-    };
     checkIfLogin();
   }, []);
+
+  const checkIfLogin = async () => {
+    if (!token) navigate("/login");
+
+    // API Call to verify JWT token
+    const url = `${BackendIp}/verify_token`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok !== true) navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Registering group
   const submitHandler = async (e) => {
@@ -67,6 +80,7 @@ const NewGroup = () => {
     }
   };
 
+  // Updating the user selected status
   const statusHandler = (e, user) => {
     if (e.target.checked) {
       if (!selectedUsers.includes(user)) {
